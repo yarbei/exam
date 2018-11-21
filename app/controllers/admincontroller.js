@@ -1,7 +1,6 @@
 class admin{
     main(req,res){
-        res.send('主页')
+        res.render('admin/index')
     }
 }
-
 module.exports=new admin();

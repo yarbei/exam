@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session=require('express-session');
 
 var adminRouter = require('./routes/admin');
 
@@ -16,8 +17,14 @@ app.engine('html',require('ejs').renderFile);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("sessiontest"));
+app.use(session({
+    secret: 'sessiontest',//与cookieParser中的一致
+    resave: true,
+    saveUninitialized:true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/admin', adminRouter);
 
